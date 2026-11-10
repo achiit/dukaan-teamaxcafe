@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tea Max Cafe - Since 2004 | Bilaspur</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
+body{background:#fff9f0;color:#333}
+header{background:#2b1a0e;color:white;padding:15px 20px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:20}
+header h1{font-size:24px;color:#ffcc00}
+header h1 span{color:white;font-size:14px;display:block}
+nav a{color:white;text-decoration:none;margin:0 10px;font-weight:bold}
+.hero{background:linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.6)),url('https://images.unsplash.com/photo-1541167760496-1628856ab772?w=1000');background-size:cover;background-position:center;color:white;padding:60px 20px;text-align:center}
+.hero h2{font-size:38px;color:#ffcc00}
+.hero p{font-size:18px;margin:10px 0}
+.btn{background:#ff6b00;color:white;padding:12px 25px;border:none;border-radius:25px;font-size:16px;cursor:pointer;text-decoration:none;display:inline-block;margin:5px}
+.btn-green{background:#25D366}
+.section{padding:35px 15px;max-width:1100px;margin:auto;text-align:center}
+.tabs{margin:20px 0}
+.tabs button{padding:10px 18px;margin:5px;border:1px solid #ff6b00;background:white;border-radius:20px;cursor:pointer;font-weight:bold}
+.tabs button.active{background:#ff6b00;color:white}
+.menu{display:flex;gap:15px;flex-wrap:wrap;justify-content:center}
+.card{background:white;border-radius:15px;box-shadow:0 4px 15px rgba(0,0,0,0.1);padding:15px;width:260px;text-align:left}
+.card img{width:100%;height:150px;object-fit:cover;border-radius:10px}
+.card h3{margin:10px 0 5px;font-size:18px}
+.card p{font-size:13px;color:#666}
+.price{color:#e65100;font-weight:bold;font-size:18px;margin:8px 0}
+.add{width:100%;background:#2b1a0e;color:white;padding:10px;border:none;border-radius:8px;cursor:pointer}
+.cart-box{background:white;padding:20px;border-radius:15px;box-shadow:0 4px 15px rgba(0,0,0,0.1);max-width:550px;margin:20px auto;text-align:left}
+.cart-box input,.cart-box select,.cart-box textarea{width:100%;padding:12px;margin:8px 0;border:1px solid #ddd;border-radius:8px}
+.pay-btn{width:100%;padding:14px;border:none;border-radius:10px;font-size:16px;font-weight:bold;cursor:pointer;margin:6px 0}
+.upi{background:#5f259f;color:white}
+.cod{background:#333;color:white}
+.qr-box{background:#f1f1f1;padding:15px;border-radius:10px;text-align:center;margin-top:10px;display:none}
+.about{background:#2b1a0e;color:white}
+.owner{display:flex;gap:20px;flex-wrap:wrap;justify-content:center;align-items:center;text-align:left}
+.owner img{width:150px;height:150px;border-radius:50%;object-fit:cover;border:4px solid #ffcc00}
+footer{background:#111;color:#aaa;padding:20px;text-align:center}
+.badge{background:#ffcc00;color:#000;padding:4px 10px;border-radius:15px;font-size:12px;font-weight:bold}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>☕ TEA MAX CAFE <span>Since 2004 • Bilaspur</span></h1>
+  <nav>
+    <a href="#menu">Menu</a>
+    <a href="#order">Order</a>
+    <a href="#about">About</a>
+    <a href="#contact">Contact</a>
+  </nav>
+</header>
+
+<div class="hero">
+  <span class="badge">⭐ 22 SAAL KA BHAROSA • SINCE 2004</span>
+  <h2>Tea Max Cafe</h2>
+  <p>Bilaspur ka Sabse Purana aur Famous Chai Cafe</p>
+  <p>Nehru Nagar, Bilaspur, Chhattisgarh</p>
+  <p>Owner: <b>Sunil Kumar</b> | 📞 9864476224</p><br>
+  <a href="#menu" class="btn">Menu Dekhe</a>
+  <a href="https://wa.me/919864476224" class="btn btn-green">WhatsApp Order</a>
+</div>
+
+<div class="section" id="menu">
+  <h2>🍽️ Hamara Full Menu</h2>
+  <p>Chai se lekar Pizza tak - Sab Kuch Fresh & Tasty</p>
+  <div class="tabs">
+    <button class="active" onclick="filterMenu('all',this)">All</button>
+    <button onclick="filterMenu('chai',this)">Chai & Coffee</button>
+    <button onclick="filterMenu('snacks',this)">Snacks</button>
+    <button onclick="filterMenu('fastfood',this)">Fast Food</button>
+    <button onclick="filterMenu('meal',this)">Full Meal</button>
+    <button onclick="filterMenu('sweet',this)">Sweet & Cold</button>
+  </div>
+  <div class="menu" id="menuList"></div>
+</div>
+
+<div class="section" id="order">
+  <h2>🛒 Order & Online Payment</h2>
+  <div class="cart-box">
+    <label>Selected Item:</label>
+    <input type="text" id="productName" value="Kulhad Chai" readonly>
+    <label>Aapka Naam:</label>
+    <input type="text" id="custName" placeholder="Apna Naam Likhe">
+    <label>Phone Number:</label>
+    <input type="tel" id="custPhone" placeholder="10 Digit Mobile Number">
+    <label>Address / Table No:</label>
+    <input type="text" id="custAddress" placeholder="Nehru Nagar, Bilaspur ya Table No.">
+    <label>Quantity:</label>
+    <select id="qty" onchange="updateTotal()">
+      <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option>
+    </select>
+    <h3 style="text-align:center">Total: ₹<span id="total">20</span></h3>
+    <button class="pay-btn upi" onclick="payUPI()">Pay with UPI - GPay / PhonePe / Paytm</button>
+    <button class="pay-btn cod" onclick="payCOD()">Cash on Delivery / Counter Pay</button>
+    <div class="qr-box" id="qrBox">
+      <h3>Scan QR to Pay</h3>
+      <img id="qrImg" src="" width="200" height="200">
+      <p>UPI ID: <b>9864476224@upi</b> | Name: Sunil Kumar</p>
+      <p style="font-size:13px">Payment ke baad screenshot WhatsApp par bheje</p>
+      <a href="https://wa.me/919864476224" style="display:inline-block;background:#25D366;color:white;padding:10px 20px;border-radius:20px;text-decoration:none;margin-top:10px;font-weight:bold">Send Screenshot</a>
+    </div>
+  </div>
+</div>
+
+<div class="section about" id="about">
+  <h2>About Tea Max Cafe - Since 2004</h2><br>
+  <div class="owner">
+    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400" alt="Sunil Kumar">
+    <div>
+      <h3>👨‍🍳 Owner - Sunil Kumar</h3>
+      <p style="margin:10px 0;line-height:1.6">22 saal se Bilaspur ke logo ko apni haath ki chai pila rahe hai.<br>
+      2004 me ek chhoti si chai ki dukaan se shuru hua safar, aaj Bilaspur ka sabse bada cafe ban gaya hai.<br>
+      Hamara vaada: Har cup me pyaar, har plate me swad.</p>
+      <p>📍 <b>Address:</b> Nehru Nagar, Bilaspur, Chhattisgarh - 495001</p>
+      <p>🕒 <b>Timing:</b> Subah 7 AM - Raat 11 PM (Roz Khula)</p>
+      <p>📞 <b>Contact:</b> 9864476224</p>
+    </div>
+  </div>
+</div>
+
+<div class="section" id="contact">
+  <h2>📍 Visit Kare</h2>
+  <p><b>Tea Max Cafe</b><br>Nehru Nagar, Bilaspur, Chhattisgarh</p>
+  <p>Owner: Sunil Kumar | Phone: 9864476224</p><br>
+  <a href="https://wa.me/919864476224" class="btn btn-green">WhatsApp Par Order Kare</a>
+  <a href="tel:9864476224" class="btn">📞 Call Kare</a>
+</div>
+
+<footer>
+  <p>© 2004 - 2026 Tea Max Cafe, Bilaspur | Owner: Sunil Kumar</p>
+  <p>Made with ❤️ in Bilaspur, Chhattisgarh</p>
+</footer>
+
+<script>
+let items = [
+  // Chai & Coffee
+  {name:"Kulhad Chai",price:20,cat:"chai",desc:"Mitti ke kulhad me kadak chai",img:"https://images.unsplash.com/photo-1541167760496-1628856ab772?w=500"},
+  {name:"Masala Chai",price:30,cat:"chai",desc:"Adrak, elaichi wali special masala chai",img:"https://images.unsplash.com/photo-1571934816519-cbc4d0a9c42f?w=500"},
+  {name:"Cutting Chai",price:15,cat:"chai",desc:"Bilaspur ki famous cutting chai",img:"https://images.unsplash.com/photo-1561336313-0bd5e0b27ec8?w=500"},
+  {name:"Cold Coffee",price:80,cat:"chai",desc:"Thandi, creamy cold coffee",img:"https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=500"},
+  {name:"Cappuccino",price:90,cat:"chai",desc:"Hot cappuccino with foam",img:"https://images.unsplash.com/photo-1572442388796-11668a67e53d?w=500"},
+  {name:"Filter Coffee",price:40,cat:"chai",desc:"South Indian filter coffee",img:"https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=500"},
+  // Snacks
+  {name:"Samosa (2 pc)",price:30,cat:"snacks",desc:"Garam, crispy aloo samosa",img:"https://images.unsplash.com/photo-1601050690597-df0568f70950?w=500"},
+  {name:"Bread Pakoda",price:40,cat:"snacks",desc:"Besan wala bread pakoda + chutney",img:"https://images.unsplash.com/photo-1606491956689-2ea866880c84?w=500"},
+  {name:"Vada Pav",price:50,cat:"snacks",desc:"Mumbai style vada pav",img:"https://images.unsplash.com/photo-1606755962773-d324e0a13086?w=500"},
+  {name:"Poha Jalebi",price:50,cat:"snacks",desc:"Subah ka nashta - Poha + Jalebi",img:"https://images.unsplash.com/photo-1589301760014-d929f3979dbc?w=500"},
+  {name:"Kachori Sabzi",price:45,cat:"snacks",desc:"Khasta kachori + aloo sabzi",img:"https://images.unsplash.com/photo-1613564834361-9436948817d1?w=500"},
+  {name:"Sandwich (Grilled)",price:60,cat:"snacks",desc:"Veg grilled sandwich",img:"https://images.unsplash.com/photo-1528735602780-2552fd46c7af?w=500"},
+  // Fast Food
+  {name:"Veg Burger",price:70,cat:"fastfood",desc:"Crispy veg burger",img:"https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=500"},
+  {name:"Cheese Pizza",price:149,cat:"fastfood",desc:"Small cheese pizza",img:"https://images.unsplash.com/photo-1513104890138-7c749659a591?w=500"},
+  {name:"Veg Momos (8 pc)",price:80,cat:"fastfood",desc:"Steam / Fried momos + spicy chutney",img:"https://images.unsplash.com/photo-1534422298391-e4f8c172dddb?w=500"},
+  {name:"French Fries",price:90,cat:"fastfood",desc:"Crispy peri peri fries",img:"https://images.unsplash.com/photo-1573080496219-bb080dd4f877?w=500"},
+  {name:"Chowmein",price:90,cat:"fastfood",desc:"Veg hakka noodles",img:"https://images.unsplash.com/photo-1585032226651-759b368d7246?w=500"},
+  {name:"Paneer Tikka",price:140,cat:"fastfood",desc:"Tandoori paneer tikka",img:"https://images.unsplash.com/photo-1567188040759-fb8a883dc6d6?w=500"},
+  // Meal
+  {name:"Chole Bhature",price:90,cat:"meal",desc:"2 bhature + chole + onion",img:"https://images.unsplash.com/photo-1626132647523-66f5bf380027?w=500"},
+  {name:"Idli Sambhar",price:60,cat:"meal",desc:"4 idli + sambhar + chutney",img:"https://images.unsplash.com/photo-1631452180519-c014fe946bc7?w=500"},
+  {name:"Masala Dosa",price:80,cat:"meal",desc:"Crispy dosa + aloo masala",img:"https://images.unsplash.com/photo-1668236543090-82eba5ee5976?w=500"},
+  {name:"Thali (Veg)",price:150,cat:"meal",desc:"Dal, Sabzi, Roti, Rice, Salad, Papad",img:"https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=500"},
+  {name:"Biryani (Veg)",price:120,cat:"meal",desc:"Dum veg biryani + raita",img:"https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?w=500"},
+  {name:"Rajma Chawal",price:100,cat:"meal",desc:"Ghar jaisa rajma chawal",img:"https://images.unsplash.com/photo-1589302168068-964664d93dc0?w=500"},
+  // Sweet & Cold
+  {name:"Gulab Jamun (2 pc)",price:40,cat:"sweet",desc:"Garam gulab jamun",img:"https://images.unsplash.com/photo-1666190092159-3171cf0fbb12?w=500"},
+  {name:"Jalebi (250g)",price:60,cat:"sweet",desc:"Kurkuri jalebi + rabri",img:"https://images.unsplash.com/photo-1589301760014-d929f3979dbc?w=500"},
+  {name:"Lassi (Sweet)",price:70,cat:"sweet",desc:"Kulhad wali meethi lassi",img:"https://images.unsplash.com/photo-1626200419199-391ae4be7a41?w=500"},
+  {name:"Mango Shake",price:90,cat:"sweet",desc:"Fresh mango shake",img:"https://images.unsplash.com/photo-1623065422902-30a2d299bbe4?w=500"},
+  {name:"Oreo Shake",price:110,cat:"sweet",desc:"Oreo thick shake",img:"https://images.unsplash.com/photo-1572490122747-3968b75cc699?w=500"},
+  {name:"Ice Cream (3 Scoop)",price:99,cat:"sweet",desc:"Vanilla / Chocolate / Butterscotch",img:"https://images.unsplash.com/photo-1563805042-7684c019e1cb?w=500"},
+];
+let basePrice = 20;
+let currentProduct = "Kulhad Chai";
+let myUPI = "9864476224@upi";
+let myName = "Sunil Kumar - Tea Max Cafe";
+
+function render(filter){
+  let html = "";
+  items.filter(i=> filter=='all' || i.cat==filter).forEach(i=>{
+    html += `<div class="card"><img src="${i.img}"><h3>${i.name}</h3><p>${i.desc}</p><div class="price">₹${i.price}</div><button class="add" onclick="selectProduct('${i.name}',${i.price})">Order Kare</button></div>`;
+  });
+  document.getElementById('menuList').innerHTML = html;
+}
+render('all');
+function filterMenu(cat,btn){
+  document.querySelectorAll('.tabs button').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  render(cat);
+}
+function selectProduct(name,price){
+  currentProduct=name; basePrice=price;
+  document.getElementById('productName').value=name;
+  updateTotal();
+  document.getElementById('order').scrollIntoView({behavior:'smooth'});
+}
+function updateTotal(){
+  let qty=document.getElementById('qty').value;
+  document.getElementById('total').innerText=basePrice*qty;
+}
+function checkDetails(){
+  let n=document.getElementById('custName').value;
+  let p=document.getElementById('custPhone').value;
+  if(n==""||p==""||p.length<10){alert("Please Naam aur sahi Phone Number bhare");return false;}
+  return true;
+}
+function payUPI(){
+  if(!checkDetails()) return;
+  let amount=basePrice*document.getElementById('qty').value;
+  let upiLink=`upi://pay?pa=${myUPI}&pn=${encodeURIComponent(myName)}&am=${amount}&cu=INR&tn=${encodeURIComponent(currentProduct)}`;
+  window.location.href=upiLink;
+  showQR(amount);
+}
+function payCOD(){
+  if(!checkDetails()) return;
+  let name=document.getElementById('custName').value;
+  alert("Dhanyavaad "+name+"! Aapka order confirm ho gaya. Total: Rs."+(basePrice*document.getElementById('qty').value));
+  let msg=`New Order - Tea Max Cafe%0AItem: ${currentProduct}%0AQty: ${document.getElementById('qty').value}%0ATotal: Rs.${basePrice*document.getElementById('qty').value}%0AName: ${name}%0APhone: ${document.getElementById('custPhone').value}%0AAddress: ${document.getElementById('custAddress').value}`;
+  window.open(`https://wa.me/919864476224?text=${msg}`,'_blank');
+}
+function showQR(amount){
+  document.getElementById('qrBox').style.display='block';
+  let upiString=`upi://pay?pa=${myUPI}&pn=${encodeURIComponent(myName)}&am=${amount}&cu=INR`;
+  document.getElementById('qrImg').src=`https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(upiString)}`;
+}
+</script>
+</body>
+</html>
